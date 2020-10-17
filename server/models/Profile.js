@@ -33,6 +33,9 @@ const ProfileSchema = mongoose.Schema({
             type: String
         },
     },
+    wrapperPhoto: {
+        type: String
+    },
     additionalContacts: [{
         name: String,
         value: String
