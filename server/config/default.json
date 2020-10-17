@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://pavel_admin:pavelAdmiN@node-react.4w2nr.mongodb.net/<dbname>?retryWrites=true&w=majority",
+    "jwtSecret": "myswcrettoken"
+}
