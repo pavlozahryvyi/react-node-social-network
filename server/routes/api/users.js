@@ -10,7 +10,7 @@ const { body, validationResult } = require('express-validator');
 const User = require('../../models/User');
 
 // @route  GET api/users
-// @desc   Test route
+// @desc   register a new user
 // @access Public
 router.post(
   '/',
@@ -19,7 +19,7 @@ router.post(
     // email check
     body('email', 'Email is required').isEmail(),
     // password must be at least 5 chars long
-    body('password', 'Password is required').isLength({ min: 5 }),
+    body('password', 'Password is required').isLength({ min: 3 }),
   ],
   async (req, res) => {
     const errors = validationResult(req);
