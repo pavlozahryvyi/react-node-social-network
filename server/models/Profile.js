@@ -36,10 +36,6 @@ const ProfileSchema = mongoose.Schema({
     wrapperPhoto: {
         type: String
     },
-    additionalContacts: [{
-        name: String,
-        value: String
-    }],
     date:{
         type: Date,
         default: Date.now
