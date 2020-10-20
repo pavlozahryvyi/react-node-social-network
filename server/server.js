@@ -40,5 +40,6 @@ app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/posts', require('./routes/api/posts'));
 app.use('/api/profile', require('./routes/api/profile'));
 app.use('/api/users', require('./routes/api/users'));
+app.use('/api/test', require('./routes/api/test'));
 
 app.listen(PORT, () => console.log(`The server started on port ${PORT}`))
