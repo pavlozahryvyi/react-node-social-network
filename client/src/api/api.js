@@ -10,7 +10,7 @@ const instance = axios.create({
 });
 
 const newInstance = axios.create({
-    baseURL: 'http://localhost:5000/api',
+    baseURL: 'http://localhost:5000/api/',
     headers: {
         'Content-Type': 'application/json'
     }
@@ -26,12 +26,12 @@ export const authAPI = {
 
     login(email, password) {
         return newInstance
-            .post(`/auth`, {email, password})
+            .post(`auth`, {email, password})
             .then(resp => resp.data);
     },
     getUserData() {
         return newInstance
-            .get('/auth', {
+            .get('auth', {
                 headers: {
                     'x-auth-token': getToken()
                 }
@@ -46,11 +46,9 @@ export const authAPI = {
 };
 
 export const usersAPI = {
-    getUsers(currentPage = 1, pageSize = 10) {
-        return instance
-            .get(`users?page=${currentPage}&count=${pageSize}`, {
-                withCredentials: true
-            })
+    getUsers() {
+        return newInstance
+            .get(`profile`)
             .then(resp => resp.data);
     },
 

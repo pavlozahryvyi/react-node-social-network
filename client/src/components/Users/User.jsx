@@ -7,42 +7,22 @@ const Users = (props) => {
 
     const {
         user,
-        followingInProgress,
-        followThunk,
-        unFollowThunk
     } = props;
 
 
-    const followHandler = (userId, cb) => {
-        console.log(userId);
-        //return cb(userId)
-    }
-
     return (
-        <div key={user.id}>
+        <div>
             <div>
-                <NavLink to={`/profile/${user.id}`}>
+                <NavLink to={`/profile/${user._id}`}>
                     <img
-                        src= {user.photos.small !== null ? user.photos.small : userPhoto}
+                        src= {user.user.avatar || userPhoto}
                         alt=""
                         className={styles.userPhoto}/>
                 </NavLink>
             </div>
-            <div>Name: {user.name}</div>
-            <div>City - {'user.location.city'}</div>
-            <div>Country - {'user.location.country'}</div>
-            {user.followed
-                ? (
-                    <button
-                        disabled={followingInProgress.some(id => id === user.id)}
-                        onClick={() => followHandler(user.id, unFollowThunk)}>Unfollow</button>
-                ) : (
-                    <button
-                        disabled={followingInProgress.some(id => id === user.id)}
-                        onClick={() => followHandler(user.id, followThunk)}
-                    >Follow</button>
-                )
-            }
+            <div>Name: {user.user.name}</div>
+            <div>City - {user.location.city}</div>
+            <div>Country - {user.location.country}</div>
         </div>
     )
 

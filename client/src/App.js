@@ -13,6 +13,7 @@ import Preloader from "./components/common/Preloader/Preloader";
 import WithSuspense from "./hoc/WithSuspense";
 import store from "./redux/redux-store";
 import {getUserThunk} from "./redux/authReducer";
+import Registration from "./components/Registration/Registration";
 
 //lazy loading
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
@@ -37,6 +38,7 @@ class App extends Component {
                             <Route path='/dialogs' render={WithSuspense(DialogsContainer)}/>
                             <Route path='/users' render={() => <UsersContainer/>}/>
                             <Route path='/login' render={() => <Login/>}/>
+                            <Route path='/registration' render={() => <Registration/>}/>
                             <Route path='/news' render={WithSuspense(News)}/>
                             <Route path='/music' render={WithSuspense(Music)}/>
                             <Route path='/settings' render={WithSuspense(Settings)}/>

@@ -99,7 +99,7 @@ router.post('/', auth, async (req, res) => {
 // @access public
 router.get('/', async (req, res) => {
     try {
-        const profiles = await Profile.find().populate('user', ['name', 'avatar']);
+        const profiles = await Profile.find().populate('user', ['name', 'avatar']).sort({date: -1});
         res.json(profiles);
     } catch (error) {
         console.error(error.message);

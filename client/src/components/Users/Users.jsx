@@ -14,7 +14,7 @@ const Users = (props) => {
         <div>
             {users.map(user => (
                     <User
-                        key={user.id}
+                        key={user._id}
                         user={user}
                         followingInProgress={followingInProgress}
                         followThunk={followThunk}

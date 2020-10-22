@@ -73,16 +73,20 @@ export const toggleFollowingProgress = (followingInProgress, userId) => ({
     userId
 });
 
-export const getUsersThunk = (currentPage, pageSize) => async dispatch => {
+export const getUsersThunk = () => async dispatch => {
 
-    dispatch(toggleIsFetching(true));
-    const data = await usersAPI.getUsers(currentPage, pageSize);
-    dispatch(toggleIsFetching(false));
-    dispatch(setUsers(data.items));
-    dispatch(setTotalUsersCount( data.totalCount));
+    try {
+        const data = await usersAPI.getUsers();
+        console.log('---users', data);
+        dispatch(setUsers(data))
+    } catch (err) {
+        console.log("Some error on a client side");
+    }
+
+
 };
 
-const followUnfollowFlow = async (dispatch, userId, apiMethod, actionCreator) =>{
+const followUnfollowFlow = async (dispatch, userId, apiMethod, actionCreator) => {
 
     dispatch(toggleFollowingProgress(true, userId));
     const response = await apiMethod(userId);

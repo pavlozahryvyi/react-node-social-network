@@ -30,11 +30,13 @@ const ProfileSchema = mongoose.Schema({
             type: String
         },
         github: {
-            type: String
+            type: String,
+            default: ""
         },
     },
     wrapperPhoto: {
-        type: String
+        type: String,
+        default: ""
     },
     date:{
         type: Date,
