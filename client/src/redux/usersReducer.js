@@ -77,7 +77,7 @@ export const getUsersThunk = () => async dispatch => {
 
     try {
         const data = await usersAPI.getUsers();
-        console.log('---users', data);
+        // console.log('---users', data);
         dispatch(setUsers(data))
     } catch (err) {
         console.log("Some error on a client side");

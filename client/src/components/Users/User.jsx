@@ -13,7 +13,7 @@ const Users = (props) => {
     return (
         <div>
             <div>
-                <NavLink to={`/profile/${user._id}`}>
+                <NavLink to={`/profile/${user.user._id}`}>
                     <img
                         src= {user.user.avatar || userPhoto}
                         alt=""

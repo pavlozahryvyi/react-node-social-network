@@ -16,7 +16,6 @@ const ProfileInfo = props => {
 
     const onSubmit = formData => {
         const promice = props.saveProfileData(formData);
-        console.log(promice);
         promice.then(
             () => {
                 setEditMode(false);
@@ -33,7 +32,7 @@ const ProfileInfo = props => {
             </div>
             <div className={style.descriptionBlock}>
                 <div>
-                    <img src={props.profile.photos.large || userPhoto} alt=""/>
+                    <img src={props.profile.user.avatar || userPhoto} alt=""/>
                     {props.isOwner
                         ? <input type="file" onChange={onMainPhotoSelected}/>
                         : null}
@@ -85,11 +84,10 @@ const ProfileInfo = props => {
 };
 
 const ProfileData = ({profile, status, aboutMe, isOwner, enableEditMode}) => {
-    console.log('---about me', aboutMe)
     return (
         <div>
             {isOwner && <button onClick={enableEditMode}>EDIT</button>}
-            <p>Name: {profile.fullName}</p>
+            <p>Name: {profile.user.name}</p>
             <p>Status: {status}</p>
             <p>Looking for a job: {profile.lookingForAJob ? "yes" : "no"}</p>
             {profile.lookingForAJob && profile.lookingForAJobDescription

@@ -50,7 +50,6 @@ export const getUserThunk = () => async dispatch => {
 
     try {
         const userInfo = await authAPI.getUserData();
-        console.log(userInfo);
         dispatch(setAuthUserData(userInfo.data))
     } catch (error) {
 

@@ -5,6 +5,7 @@ import {handleError} from "../utils/errorHandlers";
 const ADD_POST = "profileReducer/ADD_POST";
 const DELETE_POST = "profileReducer/DELETE_POST";
 const SET_USER_PROFILE = 'profileReducer/SET_USER_PROFILE';
+const GET_USER_PROFILE = 'GET_USER_PROFILE';
 const SET_USER_STATUS = 'profileReducer/SET_USER_STATUS';
 const SAVE_PHOTO_SUCCESS = 'profileReducer/SAVE_PHOTO_SUCCESS';
 const UPDATE_DATA_SUCCESS = 'profileReducer/UPDATE_DATA_SUCCESS';
@@ -18,6 +19,7 @@ let initialState = {
         {id: 4, message: 'React is cool!', likesCount: 45},
     ],
     profile: null,
+    isLoading: false,
     status: ''
 };
 
@@ -37,10 +39,16 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 postData: [...state.postData, newPost]
             };
+        case (GET_USER_PROFILE):
+            return {
+                ...state,
+                isLoading: true
+            };
         case (SET_USER_PROFILE):
             return {
                 ...state,
-                profile: action.profile
+                profile: action.profile,
+                isLoading: false
             };
         case (SET_USER_STATUS):
             return {
@@ -63,14 +71,13 @@ const profileReducer = (state = initialState, action) => {
                     }
                 }
             }
-
         default:
             return state;
 
     }
 };
 
-
+const getUserProfile = () => ({type: GET_USER_PROFILE})
 const setUserProfile = profile => ({type: SET_USER_PROFILE, profile});
 const setUserStatus = status => ({type: SET_USER_STATUS, status});
 
@@ -83,9 +90,15 @@ export const savePhotosSuccess = (photos) => ({type: SAVE_PHOTO_SUCCESS, photos}
 export const updateProfileDataSuccess = () => ({type: UPDATE_DATA_SUCCESS})
 
 
-export const getProfileThunk = userId => async dispatch => {
-    const response = await usersAPI.getProfile(userId);
-    dispatch(setUserProfile(response));
+export const getProfileThunk = (userId) => async dispatch => {
+    dispatch(getUserProfile());
+    let response;
+    if(userId) {
+        response = await profileAPI.getProfile(userId);
+    }else {
+        response = await profileAPI.getMyProfile();
+    }
+    dispatch(setUserProfile(response.data));
 };
 
 export const getUserStatus = userId => async dispatch => {

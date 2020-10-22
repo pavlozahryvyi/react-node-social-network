@@ -64,18 +64,26 @@ export const usersAPI = {
             .then(resp => resp.data);
     },
 
-    getProfile(userId) {
-        console.warn("Use profileAPI obj!");
-        return profileAPI.getProfile(userId);
-    }
 };
 
 export const profileAPI = {
 
     getProfile(userId) {
-        return instance
-            .get(`profile/${userId}`)
-            .then(resp => resp.data)
+        console.log('--- get profile user id', userId);
+        return newInstance
+            .get(`profile/user/${userId}`, {
+                headers: {
+                    'x-auth-token': getToken()
+                }
+            })
+    },
+
+    getMyProfile() {
+        return newInstance.get('profile/me', {
+            headers: {
+                'x-auth-token': getToken()
+            }
+        })
     },
 
     getStatus(userId) {
