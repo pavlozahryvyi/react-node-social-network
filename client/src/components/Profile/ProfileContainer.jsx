@@ -42,6 +42,7 @@ class ProfileContainer extends Component {
                 saveProfileData={this.props.saveProfileData}
             /> );
     }
+
 }
 
 const mapStateToProps = (state) => ({
