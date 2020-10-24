@@ -1,10 +1,11 @@
-import {authAPI, securityAPI} from "../api/api";
+import {authAPI, profileAPI, securityAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 import {logOut, setToken} from "../utils/tokenHandler";
 
 const SET_USER_DATA = 'authReducer/SET_USER_DATA';
 const SET_CAPTCHA = 'authReducer/SET_CAPTCHA';
 const LOGOUT = 'authReducer/LOGOUT';
+const REGISTRATION = 'authReducer/REGISTRATION';
 
 let initialState = {
     id: null,
@@ -56,7 +57,7 @@ export const getUserThunk = () => async dispatch => {
     }
 }
 
-export const loginThunk = (email, password) => async dispatch => {
+export const loginThunk = ({email, password}) => async dispatch => {
 
     try {
         const response = await authAPI.login(email, password);
@@ -65,7 +66,39 @@ export const loginThunk = (email, password) => async dispatch => {
         dispatch(getUserThunk());
 
     } catch (error) {
-        console.log("--- caught error", error)
+        console.log("--- error", error);
+        console.log("--- error text", error.response.data.errors[0].msg);
+        const errorText = error.response.data.errors[0].msg || "some error";
+        const action = stopSubmit("login", {_error: errorText});
+        dispatch(action);
+    }
+};
+
+export const createProfileThunk = (data) => async dispatch => {
+    try {
+        const response = await profileAPI.createProfile(data);
+        console.log('---response', response)
+        dispatch(getUserThunk());
+
+    } catch (error) {
+        const errorText = error.response.data.errors[0].msg || "some error";
+        const action = stopSubmit("registration", {_error: errorText});
+        dispatch(action);
+    }
+}
+
+export const registrationThunk = (data) => async dispatch => {
+
+    try {
+        const response = await authAPI.registration(data);
+        setToken(response.token)
+        debugger;
+
+        dispatch(createProfileThunk(data));
+    }catch (error){
+        const errorText = error.response.data.errors[0].msg || "some error";
+        const action = stopSubmit("login", {_error: errorText});
+        dispatch(action);
     }
 };
 

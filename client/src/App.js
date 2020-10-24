@@ -35,7 +35,6 @@ class App extends Component {
                     <div className="app-wrapper-content">
                         <Switch>
                             <Route path='/login' render={() => <Login/>}/>
-                            <Route path='/registration' render={() => <Registration/>}/>
                             <Route path={'/profile/:userId'} render={() => <ProfileContainer/>} exact/>
                             <Route path={'/'} render={() => <ProfileContainer/>} exact/>
                             <Route path='/dialogs' render={WithSuspense(DialogsContainer)}/>

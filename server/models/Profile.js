@@ -7,27 +7,34 @@ const ProfileSchema = mongoose.Schema({
     },
     location: {
         city: {
-            type: String
+            type: String,
+            default: ""
         },
         country: {
-            type: String
+            type: String,
+            default: ""
         }
     },
     status: {
-        type: String
+        type: String,
+        default: ""
     },
     skills: {
-        type: [String]
+        type: [String],
+        default: []
     },
     contacts: {
         facebook: {
-            type: String
+            type: String,
+            default: ""
         },
         instagram: {
-            type: String
+            type: String,
+            default: ""
         },
         twitter: {
-            type: String
+            type: String,
+            default: ""
         },
         github: {
             type: String,

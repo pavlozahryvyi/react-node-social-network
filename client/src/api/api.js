@@ -29,6 +29,7 @@ export const authAPI = {
             .post(`auth`, {email, password})
             .then(resp => resp.data);
     },
+
     getUserData() {
         return newInstance
             .get('auth', {
@@ -36,7 +37,15 @@ export const authAPI = {
                     'x-auth-token': getToken()
                 }
             })
-    }
+    },
+
+    registration(data) {
+        const {email, password, name} = data;
+        debugger;
+        return newInstance
+            .post(`users`, {email, password, name})
+            .then(resp => resp.data);
+    },
 
     /*logOut(){
         return instance
@@ -80,6 +89,14 @@ export const profileAPI = {
 
     getMyProfile() {
         return newInstance.get('profile/me', {
+            headers: {
+                'x-auth-token': getToken()
+            }
+        })
+    },
+
+    createProfile(data){
+        return newInstance.post('profile', {data}, {
             headers: {
                 'x-auth-token': getToken()
             }
