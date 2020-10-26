@@ -5,10 +5,7 @@ import {NavLink} from "react-router-dom";
 
 const User = (props) => {
 
-    const {
-        user,
-    } = props;
-    console.log('---user props', user);
+    const {user} = props;
 
     return (
         <div>

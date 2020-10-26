@@ -4,10 +4,9 @@ import {Field, reduxForm} from "redux-form";
 import {requiredField} from "../../utils/validators/validators";
 import styles from "../common/FormsControls/FormsControls.module.css";
 
-const ProfileDataForm = ({handleSubmit, profile, status, aboutMe, error}) => {
+const ProfileDataForm = ({handleSubmit, profile, error, setEditMode}) => {
     return (
         <form onSubmit={handleSubmit}>
-            <button>SAVE</button>
             {
                 error && (
                     <div className={styles.formSummaryError}>
@@ -16,49 +15,37 @@ const ProfileDataForm = ({handleSubmit, profile, status, aboutMe, error}) => {
                 )
             }
             <div>
-                <p>Name:</p>
+                <p>Status:</p>
                 <Field
                     component={Input}
-                    name={"fullName"}
-                    placeholder={"Name"}
-                    validate={requiredField}
+                    name={"status"}
+                    placeholder={"Status"}
                 />
             </div>
-            <p>Status: {status}</p>
             <div>
-                <p>Looking for a job: {profile.lookingForAJob ? "yes" : "no"}</p>
+                <p>City:</p>
                 <Field
                     component={Input}
-                    name={"lookingForAJob"}
-                    type={"checkbox"}
-                    placeholder={"Looking for a job"}
+                    name={"location.city"}
+                    placeholder={"City"}
                 />
             </div>
             <div>
-                <p>Job description: {profile.lookingForAJobDescription}</p>
+                <p>Country:</p>
                 <Field
-                    component={Textarea}
-                    name={"lookingForAJobDescription"}
-                    placeholder={"Job description"}
-                    validate={requiredField}
+                    component={Input}
+                    name={"location.country"}
+                    placeholder={"Country"}
                 />
             </div>
-            <div>
-                <p>About me: {aboutMe}</p>
-                <Field
-                    component={Textarea}
-                    name={"aboutMe"}
-                    placeholder={"About me"}
-                />
-            </div>
+            <h3>Skills</h3>
             <h3>Contacts</h3>
             <ContactForm title={'Facebook'} data={profile.contacts.facebook} name={"contacts.facebook"}/>
             <ContactForm title={'GitHub'} data={profile.contacts.github} name={"contacts.github"}/>
             <ContactForm title={'Instagram'} data={profile.contacts.instagram} name={"contacts.instagram"}/>
-            <ContactForm title={'Website'} data={profile.contacts.website} name={"contacts.website"}/>
-            <ContactForm title={'Main link'} data={profile.contacts.mainLink} name={"contacts.mainLink"}/>
-            <ContactForm title={'YouTube'} data={profile.contacts.youtube} name={"contacts.youtube"}/>
-            <ContactForm title={'VK'} data={profile.contacts.vk} name={"contacts.vk"}/>
+            <ContactForm title={'Twitter'} data={profile.contacts.twitter} name={"contacts.twitter"}/>
+            <button>SAVE</button>
+            <span onClick={()=>setEditMode(false)}>Close form [X]</span>
         </form>
     )
 }

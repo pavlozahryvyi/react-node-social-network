@@ -93,9 +93,9 @@ export const updateProfileDataSuccess = () => ({type: UPDATE_DATA_SUCCESS})
 export const getProfileThunk = (userId) => async dispatch => {
     dispatch(getUserProfile());
     let response;
-    if(userId) {
+    if (userId) {
         response = await profileAPI.getProfile(userId);
-    }else {
+    } else {
         response = await profileAPI.getMyProfile();
     }
     dispatch(setUserProfile(response.data));
@@ -108,13 +108,13 @@ export const getUserStatus = userId => async dispatch => {
 
 export const updateStatus = status => async dispatch => {
 
-    try{
+    try {
         const response = await profileAPI.updateStatus(status);
 
         if (response.data.resultCode === 0) {
             dispatch(setUserStatus(status));
         }
-    }catch (error){
+    } catch (error) {
         //dispatch
         //handle error
         //show error massage
@@ -132,6 +132,17 @@ export const savePhoto = photo => async dispatch => {
 }
 
 export const saveProfileData = data => async (dispatch, getState) => {
+    const newData = {
+        ...data,
+        ...data.location,
+        ...data.contacts,
+        skills: data.skills.join()
+    }
+    const response = await profileAPI.updateProfileData(newData);
+    console.log('---edit resp', response)
+}
+
+/*export const saveProfileData = data => async (dispatch, getState) => {
     const userId = getState().auth.id;
     const response = await profileAPI.updateProfileData(data);
     if (response.data.resultCode === 0) {
@@ -153,6 +164,6 @@ export const saveProfileData = data => async (dispatch, getState) => {
         dispatch(action);
         return Promise.reject();
     }
-}
+}*/
 
 export default profileReducer;

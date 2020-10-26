@@ -125,8 +125,13 @@ export const profileAPI = {
     },
 
     updateProfileData(data) {
-        return instance
-            .put(`profile`, data)
+        debugger;
+        return newInstance
+            .post(`profile`, data, {
+                headers: {
+                    'x-auth-token': getToken()
+                }
+            }).then(resp => resp.data);
     }
 };
 
