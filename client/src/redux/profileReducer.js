@@ -139,8 +139,14 @@ export const getPostsThunk = id => async (dispatch, getState) => {
 
 export const addPostThunk = data => async dispatch => {
 
-    const response = await profileAPI.addPost(data);
-    console.log('---add post response', response)
+    await profileAPI.addPost(data);
+    dispatch(getPostsThunk());
+}
+
+export const deletePostThunk = id => async dispatch => {
+
+    await profileAPI.deletePost(id);
+    dispatch(getPostsThunk());
 }
 
 export default profileReducer;

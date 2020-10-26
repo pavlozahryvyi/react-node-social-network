@@ -152,6 +152,16 @@ export const profileAPI = {
                 }
             })
             .then(resp => resp.data);
+    },
+
+    deletePost(id){
+        return newInstance
+            .delete(`posts/${id}`, {
+                headers: {
+                    'x-auth-token': getToken()
+                }
+            })
+            .then(resp => resp.data);
     }
 };
 

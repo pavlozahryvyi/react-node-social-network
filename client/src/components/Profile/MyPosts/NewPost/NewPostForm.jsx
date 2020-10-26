@@ -44,12 +44,6 @@ class NewPost extends Component{
         return (
             <div className={style.newPostBlock}>
                 <h3>New post</h3>
-                <p>Welcome! You can add
-                    <span className={style.boldText}> a new post</span> and
-                    <span className={style.boldText}> a new message</span> now!</p>
-                <p>
-                    Click "Add post" button or write your text and click the button to add a new post ;)
-                </p>
                 <div>
                     <NewPostReduxForm  onSubmit={onSubmit}/>
                 </div>

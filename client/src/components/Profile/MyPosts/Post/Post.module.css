@@ -6,6 +6,7 @@
     padding: 10px;
     display: flex;
     justify-content: space-around;
+    position: relative;
 }
 
 .item img{
@@ -28,4 +29,13 @@
 
 .postLikes{
 
+}
+
+.deleteBtn{
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-weight: bold;
+    font-size: 12px;
 }
