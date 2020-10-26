@@ -73,6 +73,22 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+// @route  GET api/posts/user/:id
+// @desc   Get posts by user ID
+// @access Public
+router.get('/user/:user_id', auth, async (req, res) => {
+    try {
+        const posts = await Post.find({user: req.params.user_id});
+
+        res.json(posts);
+    } catch (err) {
+        if (err.kind === 'ObjectId') {
+            return res.status(400).json({msg: 'The post isn\'t found'});
+        }
+        res.status(500).send('Server error');
+    }
+})
+
 // @route  DELETE api/posts/:id
 // @desc   Delete post by ID
 // @access Private
@@ -95,29 +111,6 @@ router.delete('/:id', auth, async (req, res) => {
 
         res.json({msg: "Post is removed"});
     } catch (err) {
-        if (err.kind === 'ObjectId') {
-            return res.status(400).json({msg: 'The post isn\'t found'});
-        }
-        res.status(500).send('Server error');
-    }
-})
-
-// @route  GET
-// @desc get posts of one user
-// @access Public
-router.get('/', auth, async (req, res) => {
-    try {
-        const posts = await Post.find({user: req.user.id});
-
-        //check a user
-        //req.user.id from auth middleware
-        if (post.user.toString() !== req.user.id) {
-            return res.status(401).json({msg: "User is not authorised"});
-        }
-
-        res.json(posts)
-    } catch (err) {
-        console.log(err);
         if (err.kind === 'ObjectId') {
             return res.status(400).json({msg: 'The post isn\'t found'});
         }

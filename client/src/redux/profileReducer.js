@@ -10,14 +10,11 @@ const SET_USER_STATUS = 'profileReducer/SET_USER_STATUS';
 const SAVE_PHOTO_SUCCESS = 'profileReducer/SAVE_PHOTO_SUCCESS';
 const UPDATE_DATA_SUCCESS = 'profileReducer/UPDATE_DATA_SUCCESS';
 
+const SET_POSTS = 'profile/SET_POSTS'
+
 
 let initialState = {
-    postData: [
-        {id: 1, message: 'My first react app!', likesCount: 32},
-        {id: 2, message: 'I need more CSS', likesCount: 15},
-        {id: 3, message: 'COOOOOOOOOOOOOOL!!!', likesCount: 15},
-        {id: 4, message: 'React is cool!', likesCount: 45},
-    ],
+    posts: [],
     profile: null,
     isLoading: false,
     status: ''
@@ -27,18 +24,6 @@ const profileReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
-        case(ADD_POST):
-
-            let newPost = {
-                id: 5,
-                message: action.newPostText,
-                likesCount: 0
-            };
-
-            return {
-                ...state,
-                postData: [...state.postData, newPost]
-            };
         case (GET_USER_PROFILE):
             return {
                 ...state,
@@ -55,10 +40,10 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 status: action.status
             };
-        case DELETE_POST :
+        case (SET_POSTS):
             return {
                 ...state,
-                postData: state.postData.filter(post => post.id !== action.id)
+                posts: action.payload
             };
         case SAVE_PHOTO_SUCCESS :
             debugger
@@ -88,6 +73,9 @@ export const deletePost = (id) => ({type: DELETE_POST, id});
 export const savePhotosSuccess = (photos) => ({type: SAVE_PHOTO_SUCCESS, photos});
 
 export const updateProfileDataSuccess = () => ({type: UPDATE_DATA_SUCCESS})
+
+
+export const setPosts = (payload) => ({type: SET_POSTS, payload})
 
 
 export const getProfileThunk = (userId) => async dispatch => {
@@ -142,28 +130,17 @@ export const saveProfileData = data => async (dispatch, getState) => {
     console.log('---edit resp', response)
 }
 
-/*export const saveProfileData = data => async (dispatch, getState) => {
-    const userId = getState().auth.id;
-    const response = await profileAPI.updateProfileData(data);
-    if (response.data.resultCode === 0) {
-        dispatch(getProfileThunk(userId));
-    } else {
-        let err = "Some error";
-        let errorsObj = {
-            _error: err
-        }
-        if (response.data.messages.length > 0) {
-            const errorName = handleError(response.data.messages[0]);
-            errorsObj = {
-                "contacts": {
-                    [errorName]: response.data.messages[0]
-                }
-            }
-        }
-        const action = stopSubmit("profile-edit", errorsObj);
-        dispatch(action);
-        return Promise.reject();
-    }
-}*/
+export const getPostsThunk = id => async (dispatch, getState) => {
+
+    const profileId = id || getState().auth._id;
+    const posts = await profileAPI.getPosts(profileId);
+    dispatch(setPosts(posts));
+}
+
+export const addPostThunk = data => async dispatch => {
+
+    const response = await profileAPI.addPost(data);
+    console.log('---add post response', response)
+}
 
 export default profileReducer;

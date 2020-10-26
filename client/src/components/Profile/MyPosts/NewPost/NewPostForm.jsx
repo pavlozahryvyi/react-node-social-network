@@ -14,7 +14,7 @@ const NewPostForm = props => {
                 <Field
                     className={style.text}
                     component={Textarea}
-                    name={"newPost"}
+                    name={"text"}
                     type={"text"}
                     placeholder={"New post"}
                     validate={[requiredField, maxLength15]}
@@ -38,7 +38,7 @@ class NewPost extends Component{
 
         const onSubmit = data => {
             console.log(data);
-            this.props.addPost(data[NEW_POST])
+            this.props.addPostThunk(data)
         };
 
         return (

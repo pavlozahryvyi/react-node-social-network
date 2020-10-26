@@ -132,6 +132,26 @@ export const profileAPI = {
                     'x-auth-token': getToken()
                 }
             }).then(resp => resp.data);
+    },
+
+    getPosts(id){
+        return newInstance
+            .get(`posts/user/${id}`, {
+                headers: {
+                    'x-auth-token': getToken()
+                }
+            })
+            .then(resp => resp.data);
+    },
+
+    addPost(text){
+        return newInstance
+            .post(`posts`, text,{
+                headers: {
+                    'x-auth-token': getToken()
+                }
+            })
+            .then(resp => resp.data);
     }
 };
 

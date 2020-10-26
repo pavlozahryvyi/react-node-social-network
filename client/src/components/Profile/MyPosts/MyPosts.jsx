@@ -5,15 +5,14 @@ import NewPost from "./NewPost/NewPostForm";
 
 const MyPosts = (props) => {
 
-
-
-    const postElements = [...props.postData]
-        .reverse().map(post => <Post key={post.id} message={post.message} likes={post.likesCount}/>);
+    const postElements = [...props.posts]
+        .reverse().map(post => <Post key={post._id} message={post.text}/>);
 
     return (
         <div className={style.postsBlock}>
 
             <NewPost
+                addPostThunk={props.addPostThunk}
                 addPost={props.addPost}
                 newPostText={props.newPostText}
 
