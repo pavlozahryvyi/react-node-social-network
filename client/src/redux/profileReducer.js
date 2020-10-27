@@ -149,4 +149,11 @@ export const deletePostThunk = id => async dispatch => {
     dispatch(getPostsThunk());
 }
 
+export const addCommentThunk = (postId, text) => async dispatch => {
+    //console.log('---postId, comment', postId, text);
+    const response = await profileAPI.addComment(postId, text);
+    console.log('--added post:', response);
+    dispatch(getPostsThunk());
+}
+
 export default profileReducer;

@@ -3,9 +3,13 @@ import style from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import NewPost from "./NewPost/NewPostForm";
 import {logout} from "../../../redux/authReducer";
-import {deletePostThunk} from "../../../redux/profileReducer";
+import {addCommentThunk, deletePostThunk} from "../../../redux/profileReducer";
 
 const MyPosts = (props) => {
+
+    const getPostId = id => {
+        console.log('---postId', id)
+    }
 
     return (
         <div className={style.postsBlock}>
@@ -26,6 +30,8 @@ const MyPosts = (props) => {
                     props.posts
                         .reverse().map(post =>
                         <Post
+                            addCommentThunk={props.addCommentThunk}
+                            getPostId={getPostId}
                             isOwner={props.isOwner}
                             deletePostThunk={props.deletePostThunk}
                             key={post._id}

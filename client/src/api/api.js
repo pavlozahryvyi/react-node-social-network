@@ -162,7 +162,17 @@ export const profileAPI = {
                 }
             })
             .then(resp => resp.data);
-    }
+    },
+
+    addComment(id, text){
+        return newInstance
+            .post(`posts/comment/${id}`, text, {
+                headers: {
+                    'x-auth-token': getToken()
+                }
+            })
+            .then(resp => resp.data);
+    },
 };
 
 export const securityAPI = {

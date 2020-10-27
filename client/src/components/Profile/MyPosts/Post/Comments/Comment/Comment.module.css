@@ -1,0 +1,25 @@
+.commentBlock{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.userAvatar{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.userAvatar img{
+    width: 100%;
+}
+.commentText{
+
+}
+.deleteComment{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+}
