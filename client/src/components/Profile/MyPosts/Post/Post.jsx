@@ -1,9 +1,8 @@
 import React from "react";
 import style from "./Post.module.css";
 import {Comments} from "./Comments/Comments";
-import {addCommentThunk} from "../../../../redux/profileReducer";
 
-const Post = ({post, deletePostThunk, isOwner, addCommentThunk}) => {
+const Post = ({post, deletePostThunk, isOwner, addCommentThunk, deleteCommentThunk, userId}) => {
 
     const deletePost = (id, text) => {
         if (window.confirm(`Do you want to delete the post ${text}?`)) {
@@ -14,6 +13,10 @@ const Post = ({post, deletePostThunk, isOwner, addCommentThunk}) => {
 
     const getCommentText = (text) => {
         addCommentThunk(post._id, text);
+    }
+
+    const getCommentId = (commentId) => {
+        deleteCommentThunk(post._id, commentId, userId)
     }
 
     return (
@@ -38,7 +41,9 @@ const Post = ({post, deletePostThunk, isOwner, addCommentThunk}) => {
                 }
             </div>
             <Comments
+                isOwner={isOwner}
                 getCommentText={getCommentText}
+                getCommentId={getCommentId}
                 comments={post.comments}
             />
         </div>

@@ -173,6 +173,16 @@ export const profileAPI = {
             })
             .then(resp => resp.data);
     },
+
+    deleteComment(postId, commentId){
+        return newInstance
+            .delete(`posts/comment/${postId}/${commentId}`, {
+                headers: {
+                    'x-auth-token': getToken()
+                }
+            })
+            .then(resp => resp.data);
+    },
 };
 
 export const securityAPI = {

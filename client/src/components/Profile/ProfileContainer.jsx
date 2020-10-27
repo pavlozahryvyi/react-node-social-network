@@ -44,6 +44,7 @@ class ProfileContainer extends Component {
         return isLoading ? (
             <Preloader/>) : (
             <Profile
+                userId={this.props.match.params.userId}
                 isOwner={!this.props.match.params.userId}
                 {...this.props}
                 profile={this.props.profile}
@@ -64,7 +65,6 @@ const mapStateToProps = (state) => ({
 
 export default compose(
     withRouter,
-    WithAuthRedirect,
     connect(mapStateToProps,
         {
             getProfileThunk,

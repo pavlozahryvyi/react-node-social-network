@@ -138,22 +138,23 @@ export const getPostsThunk = id => async (dispatch, getState) => {
 }
 
 export const addPostThunk = data => async dispatch => {
-
     await profileAPI.addPost(data);
     dispatch(getPostsThunk());
 }
 
 export const deletePostThunk = id => async dispatch => {
-
     await profileAPI.deletePost(id);
     dispatch(getPostsThunk());
 }
 
 export const addCommentThunk = (postId, text) => async dispatch => {
-    //console.log('---postId, comment', postId, text);
-    const response = await profileAPI.addComment(postId, text);
-    console.log('--added post:', response);
+    await profileAPI.addComment(postId, text);
     dispatch(getPostsThunk());
+}
+
+export const deleteCommentThunk = (postId, commentId, userId) => async dispatch => {
+    await profileAPI.deleteComment(postId, commentId);
+    dispatch(getPostsThunk(userId));
 }
 
 export default profileReducer;

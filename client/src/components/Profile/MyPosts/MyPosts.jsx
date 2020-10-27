@@ -7,9 +7,7 @@ import {addCommentThunk, deletePostThunk} from "../../../redux/profileReducer";
 
 const MyPosts = (props) => {
 
-    const getPostId = id => {
-        console.log('---postId', id)
-    }
+    // console.log('---user id', props.userId)
 
     return (
         <div className={style.postsBlock}>
@@ -31,9 +29,10 @@ const MyPosts = (props) => {
                         .reverse().map(post =>
                         <Post
                             addCommentThunk={props.addCommentThunk}
-                            getPostId={getPostId}
+                            deleteCommentThunk={props.deleteCommentThunk}
                             isOwner={props.isOwner}
                             deletePostThunk={props.deletePostThunk}
+                            userId={props.userId}
                             key={post._id}
                             post={post}
                         />)

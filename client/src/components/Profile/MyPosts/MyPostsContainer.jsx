@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import MyPosts from "./MyPosts";
-import {addCommentThunk, addPost, addPostThunk, deletePostThunk} from "../../../redux/profileReducer";
+import {addCommentThunk, addPost, addPostThunk, deleteCommentThunk, deletePostThunk} from "../../../redux/profileReducer";
 
 
 let mapStateToProps = (state) => {
@@ -15,7 +15,8 @@ const MyPostsContainer = connect(
         addPost,
         addPostThunk,
         deletePostThunk,
-        addCommentThunk
+        addCommentThunk,
+        deleteCommentThunk
     })(MyPosts);
 
 export default MyPostsContainer;
