@@ -1,38 +1,62 @@
-import React from "react";
+import React, {useState} from "react";
 import style from "./Post.module.css";
 import {Comments} from "./Comments/Comments";
+import {likePostThunk} from "../../../../redux/profileReducer";
 
-const Post = ({post, deletePostThunk, isOwner, addCommentThunk, deleteCommentThunk, userId}) => {
+const Post = ({
+                  post,
+                  deletePostThunk,
+                  isOwner,
+                  addCommentThunk,
+                  deleteCommentThunk,
+                  userId,
+                  getActivePost,
+                  activeComments,
+                  likePostThunk,
+                  unLikePostThunk
+              }) => {
 
     const deletePost = (id, text) => {
         if (window.confirm(`Do you want to delete the post ${text}?`)) {
             deletePostThunk(id)
         }
-
     }
+
+    const [showComments, setShowComments] = useState(false);
+
+    // console.log('---active comments', activeComments);
+    // console.log('---show comments', showComments);
+    // console.log('-----------------');
 
     const getCommentText = (text) => {
         addCommentThunk(post._id, text);
     }
 
     const getCommentId = (commentId) => {
-        deleteCommentThunk(post._id, commentId, userId)
+        deleteCommentThunk(post._id, commentId, userId);
     }
 
     return (
         <div className={style.postWrapper}>
-            <div className={style.item}>
-                <div className={style.postInfo}>
-                    <img
-                        // src="https://static.turbosquid.com/Preview/2019/02/12__04_46_30/cirlce_43.jpgF75B8343-6B7D-4C48-9F15-26C555FCB2DDZoom.jpg"
-                        src={post.avatar}
-                        alt=""/>
-                    <div className={style.postLikes}>
-                        <span>132</span>
-                    </div>
-                </div>
-                <div className={style.message}>
+            <div className={style.postItem}
+                 onClick={() => {
+                     getActivePost(post._id);
+                 }}
+            >
+                <div className={style.post}>
                     {post.text}
+                </div>
+                <div className={style.postInfo}>
+                    <div className={style.postUser}>
+                        <div className={style.postImg}>
+                            <img
+                                src={post.avatar}
+                                alt=""/>
+                        </div>
+                        <p>{post.name}</p>
+                    </div>
+                    <button onClick={() => likePostThunk(post._id)}>[LIKE] {post.likes.length}</button>
+                    <button onClick={() => unLikePostThunk(post._id)}>[UNLIKE]</button>
                 </div>
                 {isOwner && (
                     <div className={style.deleteBtn} onClick={() => deletePost(post._id, post.text)}>
@@ -40,12 +64,14 @@ const Post = ({post, deletePostThunk, isOwner, addCommentThunk, deleteCommentThu
                     </div>)
                 }
             </div>
-            <Comments
-                isOwner={isOwner}
-                getCommentText={getCommentText}
-                getCommentId={getCommentId}
-                comments={post.comments}
-            />
+            {(activeComments) && (
+                <Comments
+                    isOwner={isOwner}
+                    getCommentText={getCommentText}
+                    getCommentId={getCommentId}
+                    comments={post.comments}
+                />)
+            }
         </div>
     );
 };

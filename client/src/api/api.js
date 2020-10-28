@@ -183,6 +183,26 @@ export const profileAPI = {
             })
             .then(resp => resp.data);
     },
+
+    like(postId){
+        return newInstance
+            .put(`posts/like/${postId}`, {},{
+                headers: {
+                    'x-auth-token': getToken()
+                }
+            })
+            .then(resp => resp.data);
+    },
+
+    unLike(postId){
+        return newInstance
+            .put(`posts/unLike/${postId}`, {},{
+                headers: {
+                    'x-auth-token': getToken()
+                }
+            })
+            .then(resp => resp.data);
+    },
 };
 
 export const securityAPI = {

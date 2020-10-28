@@ -1,13 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
 import style from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import NewPost from "./NewPost/NewPostForm";
 import {logout} from "../../../redux/authReducer";
-import {addCommentThunk, deletePostThunk} from "../../../redux/profileReducer";
+import {addCommentThunk, deletePostThunk, likePostThunk} from "../../../redux/profileReducer";
 
 const MyPosts = (props) => {
 
-    // console.log('---user id', props.userId)
+
+    const [activePost, setActivePost] = useState(null);
+
+    const getActivePost = id => {
+        setActivePost(id);
+    }
 
     return (
         <div className={style.postsBlock}>
@@ -25,9 +30,12 @@ const MyPosts = (props) => {
             <div>
                 <h3>My posts</h3>
                 {
-                    props.posts
-                        .reverse().map(post =>
+                    props.posts.map(post =>
                         <Post
+                            unLikePostThunk={props.unLikePostThunk}
+                            likePostThunk={props.likePostThunk}
+                            getActivePost={getActivePost}
+                            activeComments={post._id === activePost}
                             addCommentThunk={props.addCommentThunk}
                             deleteCommentThunk={props.deleteCommentThunk}
                             isOwner={props.isOwner}

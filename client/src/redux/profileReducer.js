@@ -157,4 +157,16 @@ export const deleteCommentThunk = (postId, commentId, userId) => async dispatch 
     dispatch(getPostsThunk(userId));
 }
 
+export const likePostThunk = (postId) => async dispatch => {
+    const response = await profileAPI.like(postId);
+    console.log('---like response', response)
+    dispatch(getProfileThunk());
+}
+
+export const unLikePostThunk = (postId) => async dispatch => {
+    const response = await profileAPI.unLike(postId);
+    console.log('---unLike response', response)
+    dispatch(getProfileThunk());
+}
+
 export default profileReducer;

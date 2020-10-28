@@ -7,7 +7,7 @@ import {
     updateStatus,
     savePhoto,
     saveProfileData,
-    getPostsThunk
+    getPostsThunk, likePostThunk
 } from "../../redux/profileReducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
