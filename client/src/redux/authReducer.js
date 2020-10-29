@@ -3,28 +3,35 @@ import {stopSubmit} from "redux-form";
 import {logOut, setToken} from "../utils/tokenHandler";
 
 const SET_USER_DATA = 'authReducer/SET_USER_DATA';
+const GET_USER_DATA = 'authReducer/GET_USER_DATA';
 const SET_CAPTCHA = 'authReducer/SET_CAPTCHA';
 const LOGOUT = 'authReducer/LOGOUT';
 const REGISTRATION = 'authReducer/REGISTRATION';
 
 let initialState = {
-    id: null,
     _id: null,
     email: null,
     name: null,
-    login: null,
     isAuth: false,
-    captchaUrl: null
+    isLoading: false
 };
 
 const authReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case(SET_USER_DATA):
+        case GET_USER_DATA:
+            console.log('---isLoading true');
+            return {
+                ...state,
+                isLoading: true
+            }
+        case SET_USER_DATA:
+            console.log('---isLoading false');
             return {
                 ...state,
                 ...action.payload,
-                isAuth: true
+                isAuth: true,
+                isLoading: false,
             };
         case SET_CAPTCHA:
             return {
@@ -43,12 +50,16 @@ export const setAuthUserData = (data) => ({
     payload: data
 });
 
+export const getAuthUserData = () => ({
+    type: GET_USER_DATA,
+});
+
 export const logout = () => ({
     type: LOGOUT
 });
 
 export const getUserThunk = () => async dispatch => {
-
+    dispatch(getAuthUserData());
     try {
         const userInfo = await authAPI.getUserData();
         dispatch(setAuthUserData(userInfo.data))
@@ -77,7 +88,6 @@ export const loginThunk = ({email, password}) => async dispatch => {
 export const createProfileThunk = (data) => async dispatch => {
     try {
         const response = await profileAPI.createProfile(data);
-        console.log('---response', response)
         dispatch(getUserThunk());
 
     } catch (error) {
@@ -92,7 +102,6 @@ export const registrationThunk = (data) => async dispatch => {
     try {
         const response = await authAPI.registration(data);
         setToken(response.token)
-        debugger;
 
         dispatch(createProfileThunk(data));
     }catch (error){

@@ -13,17 +13,32 @@
 
 .post{
     display: flex;
-    align-items: center;
-    flex-basis: 90%;
+    margin-bottom: 15px;
+    padding: 15px 5px;
+    border-bottom: 1px solid #394d31;
 }
 
 .postInfo{
     overflow: hidden;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .postUser{
     display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.postActions{
+display: flex;
+
+}
+
+.likeBlock{
+    display: flex;
+    align-items: center;
     margin-right: 20px;
 }
 
@@ -38,6 +53,13 @@
     height: auto;
     border-radius: 50%;
     display: block;
+}
+
+.commentsBtn{
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
 }
 
 .postLikes{

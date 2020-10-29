@@ -1,5 +1,5 @@
 import React from "react";
-import {NewComment} from "./NewComment/NewComment";
+import NewComment from "./NewComment/NewComment";
 import styles from "./Comments.module.css"
 import {Comment} from "./Comment/Comment";
 

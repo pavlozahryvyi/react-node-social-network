@@ -41,17 +41,10 @@ export const authAPI = {
 
     registration(data) {
         const {email, password, name} = data;
-        debugger;
         return newInstance
             .post(`users`, {email, password, name})
             .then(resp => resp.data);
     },
-
-    /*logOut(){
-        return instance
-            .delete(`/auth/login`)
-            .then(resp => resp.data);
-    }*/
 };
 
 export const usersAPI = {
@@ -78,7 +71,6 @@ export const usersAPI = {
 export const profileAPI = {
 
     getProfile(userId) {
-        console.log('--- get profile user id', userId);
         return newInstance
             .get(`profile/user/${userId}`, {
                 headers: {
@@ -125,7 +117,6 @@ export const profileAPI = {
     },
 
     updateProfileData(data) {
-        debugger;
         return newInstance
             .post(`profile`, data, {
                 headers: {

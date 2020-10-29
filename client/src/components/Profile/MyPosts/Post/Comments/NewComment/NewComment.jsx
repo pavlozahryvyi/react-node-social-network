@@ -2,6 +2,8 @@ import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {Input} from "../../../../../common/FormsControls/FormsControls";
 import {requiredField} from "../../../../../../utils/validators/validators";
+import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 
 const newCommentForm = props => {
     return <form onSubmit={props.handleSubmit}>
@@ -16,7 +18,7 @@ const newCommentForm = props => {
 
 const NewCommentReduxForm = reduxForm({form: "comment"})(newCommentForm);
 
-export const NewComment = props => {
+const NewComment = props => {
 
     function onSubmit(formData){
         props.getCommentText(formData);
@@ -27,3 +29,7 @@ export const NewComment = props => {
         <NewCommentReduxForm onSubmit={onSubmit} />
     </div>
 }
+
+export default connect(
+    withRouter
+)(NewComment)

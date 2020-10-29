@@ -9,11 +9,9 @@ import Login from "./components/Login/Login";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/appReducer";
-import Preloader from "./components/common/Preloader/Preloader";
 import WithSuspense from "./hoc/WithSuspense";
 import store from "./redux/redux-store";
 import {getUserThunk} from "./redux/authReducer";
-import Registration from "./components/Registration/Registration";
 
 //lazy loading
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
@@ -24,10 +22,12 @@ const Settings = React.lazy(() => import('./components/Settings/Settings'));
 class App extends Component {
 
     componentDidMount() {
+       console.log('---app component did mount');
        this.props.getUserThunk();
     }
 
     render() {
+        console.log("app component");
         return <div className="app-wrapper">
                 <HeaderContainer/>
                 <Navbar/>

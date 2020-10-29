@@ -11,7 +11,6 @@ import {
 } from "../../redux/profileReducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
-import WithAuthRedirect from "../../hoc/WithAuthRedirect";
 import Preloader from "../common/Preloader/Preloader";
 
 class ProfileContainer extends Component {
@@ -20,30 +19,24 @@ class ProfileContainer extends Component {
         const userId = this.props.match.params.userId || null;
         this.props.getProfileThunk(userId);
         this.props.getPostsThunk(userId);
-        console.log(this.props.myId)
-        /*console.log("---userId", userId);
-        if (userId) {
-            this.props.getProfileThunk(userId);
-        }else {
-            this.props.getProfileThunk();
-        }*/
     };
 
     componentDidMount() {
         this.refreshProfile();
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.match.params.userId !== this.props.match.params.userId) {
-            this.refreshProfile()
-        }
-    }
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     if (prevProps.match.params.userId !== this.props.match.params.userId) {
+    //         this.refreshProfile()
+    //     }
+    // }
 
     render() {
         const {isLoading} = this.props;
         return isLoading ? (
             <Preloader/>) : (
             <Profile
+                myId={this.props.myId}
                 userId={this.props.match.params.userId}
                 isOwner={!this.props.match.params.userId}
                 {...this.props}

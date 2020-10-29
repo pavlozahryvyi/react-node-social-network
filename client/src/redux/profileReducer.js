@@ -46,7 +46,6 @@ const profileReducer = (state = initialState, action) => {
                 posts: action.payload
             };
         case SAVE_PHOTO_SUCCESS :
-            debugger
             return {
                 ...state,
                 profile: {
@@ -74,8 +73,7 @@ export const savePhotosSuccess = (photos) => ({type: SAVE_PHOTO_SUCCESS, photos}
 
 export const updateProfileDataSuccess = () => ({type: UPDATE_DATA_SUCCESS})
 
-
-export const setPosts = (payload) => ({type: SET_POSTS, payload})
+export const setPosts = (payload) => ({type: SET_POSTS, payload});
 
 
 export const getProfileThunk = (userId) => async dispatch => {
@@ -147,9 +145,9 @@ export const deletePostThunk = id => async dispatch => {
     dispatch(getPostsThunk());
 }
 
-export const addCommentThunk = (postId, text) => async dispatch => {
+export const addCommentThunk = (postId, text, userId) => async dispatch => {
     await profileAPI.addComment(postId, text);
-    dispatch(getPostsThunk());
+    dispatch(getPostsThunk(userId));
 }
 
 export const deleteCommentThunk = (postId, commentId, userId) => async dispatch => {
@@ -157,16 +155,14 @@ export const deleteCommentThunk = (postId, commentId, userId) => async dispatch 
     dispatch(getPostsThunk(userId));
 }
 
-export const likePostThunk = (postId) => async dispatch => {
+export const likePostThunk = (postId, userId) => async dispatch => {
     const response = await profileAPI.like(postId);
-    console.log('---like response', response)
-    dispatch(getProfileThunk());
+    dispatch(getPostsThunk(userId));
 }
 
-export const unLikePostThunk = (postId) => async dispatch => {
+export const unLikePostThunk = (postId, userId) => async dispatch => {
     const response = await profileAPI.unLike(postId);
-    console.log('---unLike response', response)
-    dispatch(getProfileThunk());
+    dispatch(getPostsThunk(userId));
 }
 
 export default profileReducer;

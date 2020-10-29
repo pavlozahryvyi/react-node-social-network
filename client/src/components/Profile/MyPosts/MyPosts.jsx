@@ -32,6 +32,7 @@ const MyPosts = (props) => {
                 {
                     props.posts.map(post =>
                         <Post
+                            myId={props.myId}
                             unLikePostThunk={props.unLikePostThunk}
                             likePostThunk={props.likePostThunk}
                             getActivePost={getActivePost}
