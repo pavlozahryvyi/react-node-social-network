@@ -2,12 +2,21 @@
     display: flex;
     align-items: center;
     position: relative;
+    margin-top: 15px;
+    font-size: 12px;
+    justify-content: space-between;
+}
+.userInfo{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
 }
 .userAvatar{
     width: 20px;
     height: 20px;
     border-radius: 50%;
     overflow: hidden;
+    margin-right: 10px;
 }
 .userAvatar img{
     width: 100%;
@@ -16,10 +25,6 @@
 
 }
 .deleteComment{
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    font-size: 11px;
-    font-weight: bold;
-    cursor: pointer;
+    align-self: flex-end;
+    font-size: 12px;
 }

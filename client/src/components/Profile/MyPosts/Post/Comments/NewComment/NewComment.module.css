@@ -1,0 +1,28 @@
+.addCommentBlock{
+    display: flex;
+    align-items: center;
+
+}
+
+.addCommentInput input{
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 30px;
+}
+
+.addCommentBtn button{
+    border: none;
+    background: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.addCommentBtn button:hover{
+    background: #777777;
+}

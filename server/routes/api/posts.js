@@ -78,7 +78,11 @@ router.get('/:id', async (req, res) => {
 // @access Public
 router.get('/user/:user_id', auth, async (req, res) => {
     try {
-        const posts = await Post.find({user: req.params.user_id});
+        let userId = req.params.user_id;
+        if(userId === 'null'){
+            userId = req.user.id;
+        }
+        const posts = await Post.find({user: userId});
 
         res.json(posts);
     } catch (err) {
