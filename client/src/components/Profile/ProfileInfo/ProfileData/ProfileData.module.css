@@ -1,0 +1,15 @@
+.profileData{
+    display: flex;
+    flex-grow: 1;
+    margin: 0 20px;
+}
+.profileInfo{
+flex-basis: 50%;
+}
+.profileInfo p span{
+    font-weight: bold;
+}
+.profileContacts{
+    flex-basis: 50%;
+
+}

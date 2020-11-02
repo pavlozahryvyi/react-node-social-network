@@ -125,7 +125,7 @@ export const saveProfileData = data => async (dispatch, getState) => {
         skills: data.skills.join()
     }
     const response = await profileAPI.updateProfileData(newData);
-    console.log('---edit resp', response)
+    dispatch(getProfileThunk());
 }
 
 export const getPostsThunk = id => async (dispatch, getState) => {

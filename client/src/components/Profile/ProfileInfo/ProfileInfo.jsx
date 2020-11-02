@@ -2,11 +2,10 @@ import React, {useState} from "react";
 import style from "./ProfileInfo.module.css";
 import Preloader from "../../common/Preloader/Preloader";
 import userPhoto from "../../../assets/img/usr.png"
-import ProfileStatusHooks from "./ProfileStatus/ProfileStatusHooks";
-import ProfileDataForm from "../ProfileDataForm";
+import ProfileDataForm from "./ProfileDataForm/ProfileDataForm";
 import {Skill} from "./Skill/Skill";
 import ProfileData from "./ProfileData/ProfileData";
-import {ProfileContacts} from "./ProfileContacts/ProfileContacts";
+import EditIcon from '@material-ui/icons/Edit';
 
 const ProfileInfo = props => {
 
@@ -32,20 +31,17 @@ const ProfileInfo = props => {
     }
 
     return props.profile ? (
-        <div className="profileInfo">
+        <div className={style.profile}>
             <div className={style.profileImage}>
                 <img
                     src="https://image.winudf.com/v2/image/Y29tLmJlYWNoLmJhbGliZWFjaHdhbGxwYXBlcl9zY3JlZW5fMF8xNTMyOTc5NTE3XzA0NQ/screen-0.jpg?fakeurl=1&type=.jpg"
                     alt=""/>
             </div>
             <div className={style.descriptionBlock}>
-                <div>
+                <div className={style.profileImgBlock}>
                     <img src={props.profile.user.avatar || userPhoto} alt=""/>
-                    {(props.isOwner && editMode)
-                        ? <input type="file" onChange={onMainPhotoSelected}/>
-                        : null}
                 </div>
-                <div>
+                <>
                     {editMode ? (
                         <ProfileDataForm
                             initialValues={props.profile}
@@ -57,15 +53,19 @@ const ProfileInfo = props => {
                         />
                     ) : (
                         <>
-                            <ProfileData
-                                profile={props.profile}
-                            />
-                            <ProfileContacts profile={props.profile}/>
-                            {props.isOwner && <button onClick={enableEditMode}>EDIT</button>}
+                            <>
+                                <ProfileData
+                                    profile={props.profile}
+                                />
+                            </>
+                            {props.isOwner && <div className={style.editProfileBtn}>
+                                <EditIcon onClick={enableEditMode} cursor={'pointer'}/>
+                            </div>
+                            }
                         </>
                     )
                     }
-                </div>
+                </>
             </div>
         </div>
     ) : (

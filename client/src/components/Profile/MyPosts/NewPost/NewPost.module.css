@@ -39,6 +39,16 @@ p .boldText{
     flex-basis: 5%;
 }
 
+.buttonBlock button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonBlock button:hover{
+    color: white;
+}
+
 .newPostCreationBlock button{
     border: none;
     padding: 5px;

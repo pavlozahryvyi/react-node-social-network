@@ -4,6 +4,7 @@ import sendImg from "./../../../../img/add.png"
 import {Field, reduxForm} from "redux-form";
 import {maxLength15, requiredField} from "../../../../utils/validators/validators";
 import {Textarea} from "../../../common/FormsControls/FormsControls";
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 const NEW_POST = "newPost";
 
@@ -17,13 +18,11 @@ const NewPostForm = props => {
                     name={"text"}
                     type={"text"}
                     placeholder={"New post"}
-                    validate={[requiredField, maxLength15]}
                 />
             </div>
             <div className={style.buttonBlock}>
                 <button>
-                    <img alt={'send'} src={sendImg}/>
-                    <div>Publish</div>
+                    <AddCircleOutlineIcon />
                 </button>
             </div>
         </form>
